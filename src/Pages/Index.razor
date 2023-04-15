@@ -1,0 +1,28 @@
+﻿@page "/"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavManager
+
+<PageTitle>Home</PageTitle>
+
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-normal">Personal Expense Tracker</h1>
+        <p class="lead fw-normal">Tracking your spending on a regular basis can give you an accurate picture of where your money is going — and where you’d like it to go instead.</p>
+        <a class="btn btn-outline-secondary" href="Identity/Account/Login">Get Started</a>
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            NavManager.NavigateTo(ConstHelper.AUTHENTICATED_DEFAULT_URI);
+        }
+    }
+}

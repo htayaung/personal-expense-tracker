@@ -1,0 +1,140 @@
+﻿@attribute [Authorize]
+@inherits AuthBaseComponent
+@using PersonalExpenseTracker.Models.ViewModels
+
+<div class="card">
+    <div class="card-header">
+        @ActionType
+    </div>
+    <div class="card-body">
+        <EditForm Model="@expense" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="mb-3">
+                <label for="description">Description</label>
+                <InputText id="description" class="form-control" @bind-Value="expense.Description" @ref="referenceDescription" />
+            </div>
+
+            <div class="mb-3">
+                <label for="category">Category</label>
+                <InputSelect id="category" class="form-select" @bind-Value="expense.CategoryId">
+                    @if (expense.Categories != null && expense.Categories.Count() > 0)
+                    {
+                        foreach (var category in expense.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label for="date">Date</label>
+                <InputDate id="date" class="form-control" @bind-Value="expense.Date" />
+            </div>
+
+            <div class="mb-3">
+                <label for="amount">Amount ($)</label>
+                <InputNumber id="amount" class="form-control" @bind-Value="expense.Amount" />
+            </div>
+
+            <div class="mb-3">
+                <label for="priority-level">Priority Level</label>
+                <InputRadioGroup id="priority-level" @bind-Value="expense.PriorityLevel">
+                    @foreach (var priority in Utility.EnumHelper.GetList<PriorityLevel>())
+                    {
+                        <div class="form-check">
+                            <InputRadio id="@priority.Value" class="form-check-input" Value="@priority.Value" />
+                            <label class="form-check-label" for="@priority.Value">
+                                @priority.Name
+                            </label>
+                        </div>
+                    }
+                </InputRadioGroup>
+            </div>
+
+            <div class="mb-3">
+                <label for="remark">Remark</label>
+                <InputTextArea id="remark" class="form-control" @bind-Value="expense.Remark" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public ExpenseViewModel Expense { get; set; } = new();
+
+    [Parameter]
+    public bool SetFocus { get; set; }
+
+    [Parameter]
+    public EventCallback OnSubmitCallback { get; set; }
+
+    private ExpenseViewModel expense = new();
+
+    private bool IsNewRecord = true;
+
+    private string ActionType
+    {
+        get
+        {
+            return $"{(IsNewRecord ? "New" : "Edit")} Expense";
+        }
+    }
+
+    private InputText referenceDescription;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        IsNewRecord = Expense.Id == Guid.Empty;
+        Expense.CopyTo(expense);
+
+        if (IsNewRecord)
+        {
+            expense.Date = DateTime.Now;
+        }
+
+        // Set categories
+        expense.Categories = GetCategories();
+
+        if (SetFocus && referenceDescription != null && referenceDescription.Element.HasValue)
+        {
+            referenceDescription.Element.Value.FocusAsync();
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (IsNewRecord)
+        {
+            UnitOfWork.Expense.Insert(expense.ToEntity(), UserId);
+        }
+        else
+        {
+            UnitOfWork.Expense.Update(expense.ToEntity(), UserId);
+        }
+
+        UnitOfWork.Save();
+        StateHasChanged();
+
+        await OnSubmitCallback.InvokeAsync();
+    }
+
+    private IEnumerable<CategoryViewModel> GetCategories()
+    {
+        var categoryModels = UnitOfWork.Category.Get(
+            filter: model => model.CreatedBy == UserId,
+            orderBy: model => model.OrderBy(model => model.Name));
+        return CategoryViewModel.FromEntities(categoryModels);
+    }
+}

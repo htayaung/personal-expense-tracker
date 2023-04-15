@@ -1,0 +1,149 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = PersonalExpenseTracker
+build_property.RootNamespace = PersonalExpenseTracker
+build_property.ProjectDir = D:\Workspace\Projects\PersonalExpenseTracker\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Workspace\Projects\PersonalExpenseTracker
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Charts/BarChart.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhcnRzXEJhckNoYXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Charts/LineChart.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhcnRzXExpbmVDaGFydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Charts/PieChart.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhcnRzXFBpZUNoYXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Expense/Category.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXhwZW5zZVxDYXRlZ29yeS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Expense/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXhwZW5zZVxEYXNoYm9hcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Expense/Expense.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXhwZW5zZVxFeHBlbnNlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Expense/SaveCategory.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXhwZW5zZVxTYXZlQ2F0ZWdvcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Expense/SaveExpense.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXhwZW5zZVxTYXZlRXhwZW5zZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Shared/DialogBox.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERpYWxvZ0JveC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Shared/FooterDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEZvb3RlckRpc3BsYXkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Shared/LoginDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2luRGlzcGxheS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-fpq9wjyc2e
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-cgx13dj2z1
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/Account/LogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Workspace/Projects/PersonalExpenseTracker/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

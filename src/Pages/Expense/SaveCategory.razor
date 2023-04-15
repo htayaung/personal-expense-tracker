@@ -1,0 +1,81 @@
+﻿@attribute [Authorize]
+@inherits AuthBaseComponent
+@using PersonalExpenseTracker.Models.ViewModels
+
+<div class="card">
+    <div class="card-header">
+        @ActionType
+    </div>
+    <div class="card-body">
+        <EditForm Model="@category" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="mb-3">
+                <label for="name">Name</label>
+                <InputText id="name" class="form-control" @bind-Value="category.Name" @ref="referenceCategoryName" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public CategoryViewModel Category { get; set; } = new();
+
+    [Parameter]
+    public bool SetFocus { get; set; }
+
+    [Parameter]
+    public EventCallback OnSubmitCallback { get; set; }
+
+    private CategoryViewModel category = new();
+
+    private bool IsNewRecord = true;
+
+    private string ActionType
+    {
+        get
+        {
+            return $"{(IsNewRecord ? "New" : "Edit")} Category";
+        }
+    }
+
+    private InputText referenceCategoryName;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        IsNewRecord = Category.Id == Guid.Empty;
+        Category.CopyTo(category);
+
+        if (SetFocus && referenceCategoryName != null && referenceCategoryName.Element.HasValue)
+        {
+            referenceCategoryName.Element.Value.FocusAsync();
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (IsNewRecord)
+        {
+            UnitOfWork.Category.Insert(category.ToEntity(), UserId);
+        }
+        else
+        {
+            UnitOfWork.Category.Update(category.ToEntity(), UserId);
+        }
+
+        UnitOfWork.Save();
+        StateHasChanged();
+
+        await OnSubmitCallback.InvokeAsync();
+    }
+}

@@ -1,0 +1,273 @@
+﻿@page "/dashboard"
+@attribute [Authorize]
+@inherits AuthBaseComponent
+@using MudBlazor;
+@using PersonalExpenseTracker.Models.ViewModels
+@using System.Globalization;
+@using PersonalExpenseTracker.Pages.Charts
+@using PersonalExpenseTracker.Utility;
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex bd-highlight">
+                    <div class="p-2 flex-grow-1 bd-highlight"><h3>Dashboard</h3></div>
+                    <EditForm Model="@Filter" class="row row-cols-lg-auto g-3 align-items-center">
+                        <div class="col-12">
+                            <InputSelect class="form-select" @bind-Value="Filter.SelectedYear">
+                                @foreach (var filter in Filter.FilterYears)
+                                {
+                                    <option value="@filter.Value">@filter.Text</option>
+                                }
+                            </InputSelect>
+                        </div>
+
+                        <div class="col-12">
+                            <InputSelect class="form-select" @bind-Value="Filter.SelectedMonth">
+                                @foreach (var filter in Filter.FilterMonths)
+                                {
+                                    <option value="@filter.Value">@filter.Text</option>
+                                }
+                            </InputSelect>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary" @onclick="LoadData">
+                                <span class="oi oi-magnifying-glass" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+            <div class="card-body">
+                <PersonalExpenseTracker.Pages.Charts.LineChart Series="@LinechartSeries"
+                                                               XAxisLabels="@LineChartXAxisLabels"
+                                                               Title="@LinechartTitle" />
+                <table class="table table-borderless table-responsive">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Expenses.Count > 0)
+                        {
+                            foreach (var expense in Expenses.Select((value, i) => new { Index = i + 1, Value = value }))
+                            {
+                                <tr>
+                                    <th scope="row">@expense.Index</th>
+                                    <td>@expense.Value.Description</td>
+                                    <td>@expense.Value.CategoryName</td>
+                                    <td>@expense.Value.Date.ToString(DateTimeHelper.STANDARD_DATE_FORMAT)</td>
+                                    <td>@expense.Value.Amount</td>
+                                    <td>@expense.Value.PriorityLevelName</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="6"><p class="text-center">No record found.</p></td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <PieChart Piechart="@PiechartData" />
+        <hr />
+        <BarChart Series="@BarchartSeries"
+                  XAxisLabels="@BarcartXAxisLabels"
+                  Title="@BarchartTitle" />
+    </div>
+</div>
+
+
+@code {
+    private IList<ExpenseViewModel> Expenses = new List<ExpenseViewModel>();
+    private DashboardFilterViewModel Filter;
+
+    // Line Chart
+    private List<ChartSeries> LinechartSeries = new List<ChartSeries>();
+    private string[] LineChartXAxisLabels = new string[] { };
+    private string LinechartTitle;
+
+    // Pie Chart
+    private PiechartData PiechartData = new PiechartData();
+
+    // Bar Chart
+    private List<ChartSeries> BarchartSeries = new List<ChartSeries>();
+    private string[] BarcartXAxisLabels = new string[] { };
+    private string BarchartTitle;
+
+    protected async override Task OnInitializedAsync()
+    {
+        InitializeFilters();
+        await LoadData();
+    }
+
+    private void InitializeFilters()
+    {
+        Filter = new DashboardFilterViewModel();
+        InitializeYearFilters();
+        InitializeMonthFilters();
+    }
+
+    private void InitializeYearFilters()
+    {
+        var now = DateTimeHelper.Now();
+        for (int i = 0; i < 3; i++)
+        {
+            var year = now.Year - i;
+            Filter.FilterYears.Add(new SelectItemViewModel<int>
+                {
+                    Value = year,
+                    Text = year.ToString()
+                });
+
+            if (year == now.Year)
+            {
+                Filter.SelectedYear = year;
+            }
+        }
+    }
+
+    private void InitializeMonthFilters()
+    {
+        var now = DateTimeHelper.Now();
+        for (int i = 1; i <= 12; i++)
+        {
+            Filter.FilterMonths.Add(new SelectItemViewModel<int>
+                {
+                    Value = i,
+                    Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)
+                });
+
+            if (i == now.Month)
+            {
+                Filter.SelectedMonth = i;
+            }
+        }
+    }
+
+    private async Task LoadData()
+    {
+        var expenseModels = await UnitOfWork.Expense.GetAsync(
+            filter: model => model.CreatedBy == UserId
+                && model.Date.Year == Filter.SelectedYear
+                && model.Date.Month == Filter.SelectedMonth,
+            orderBy: model => model.OrderBy(model => model.Date));
+        Expenses = new List<ExpenseViewModel>();
+        var categories = GetCategories();
+
+        foreach (var expense in expenseModels)
+        {
+            Expenses.Add(ExpenseViewModel.FromEntity(expense, categories));
+        }
+
+        SetPiechartData();
+        SetLinechartData();
+        SetBarchartData();
+
+        StateHasChanged();
+    }
+
+    private IEnumerable<CategoryViewModel> GetCategories()
+    {
+        var categoryModels = UnitOfWork.Category.Get(
+            filter: model => model.CreatedBy == UserId,
+            orderBy: model => model.OrderBy(model => model.Name));
+        return CategoryViewModel.FromEntities(categoryModels);
+    }
+
+    private void SetPiechartData()
+    {
+        var data = Expenses.GroupBy(item => item.CategoryName);
+        PiechartData.Data = data.Select(item => decimal.ToDouble(item.Sum(model => model.Amount))).ToArray();
+        PiechartData.Classes = data.Select(item => item.Key).ToArray();
+        PiechartData.Title = "Expenses by category";
+    }
+
+    private void SetLinechartData()
+    {
+        var daysInMonth = DateTime.DaysInMonth(Filter.SelectedYear, Filter.SelectedMonth);
+        var days = Enumerable.Range(1, daysInMonth);
+
+        // series
+        var data = Expenses.GroupBy(item => item.CategoryName);
+        LinechartSeries = data.Select(item =>
+        {
+            var groupedByDay = item
+                .GroupBy(x => x.Date.Day)
+                .Select(x => new { Day = x.Key, Amount = decimal.ToDouble(x.Sum(y => y.Amount)) })
+                .ToList();
+            var seriesData = new double[daysInMonth];
+            for (int i = 0; i < daysInMonth; i++)
+            {
+                var currentDay = groupedByDay.FirstOrDefault(x => x.Day == (i + 1));
+                if (currentDay == null)
+                {
+                    seriesData[i] = 0;
+                }
+                else
+                {
+                    seriesData[i] = currentDay.Amount;
+                }
+            }
+
+            return new ChartSeries
+                {
+                    Name = item.Key,
+                    Data = seriesData
+                };
+        }).ToList();
+
+        // labels
+        LineChartXAxisLabels = days.Select(item => item.ToString()).ToArray();
+        LinechartTitle = "Daily expenses vs Category";
+    }
+
+    private void SetBarchartData()
+    {
+        var priorityLevels = EnumHelper.GetList<PriorityLevel>();
+
+        // series
+        var data = Expenses
+            .GroupBy(item => item.PriorityLevel)
+            .Select(x => new { Level = x.Key, Amount = decimal.ToDouble(x.Sum(y => y.Amount)) })
+            .ToList();
+
+        var seriesData = new double[priorityLevels.Count()];
+        for (int i = 0; i < priorityLevels.Count(); i++)
+        {
+            var current = data.FirstOrDefault(x => x.Level == i);
+            if (current == null)
+            {
+                seriesData[i] = 0;
+            }
+            else
+            {
+                seriesData[i] = current.Amount;
+            }
+        }
+
+        BarchartSeries = new List<ChartSeries>
+        {
+            new ChartSeries
+            {
+                Name = "Priority",
+                Data = seriesData
+            }
+        };
+
+        // labels
+        BarcartXAxisLabels = priorityLevels.Select(item => item.Name).ToArray();
+        BarchartTitle = "Expenses vs Priority Level";
+    }
+}

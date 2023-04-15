@@ -1,0 +1,12 @@
+﻿@using MudBlazor;
+@using PersonalExpenseTracker.Models.ViewModels;
+<MudBlazor.MudText Typo="Typo.h6" Align="Align.Center">@Piechart.Title</MudBlazor.MudText>
+<MudBlazor.MudPaper>
+    <MudBlazor.MudChart ChartType="MudBlazor.ChartType.Pie"
+                        InputData="@Piechart.Data"
+                        InputLabels="@Piechart.Classes" />
+</MudBlazor.MudPaper>
+@code {
+    [Parameter]
+    public PiechartData Piechart { get; set; }
+}
