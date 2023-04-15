@@ -19,6 +19,9 @@ If you want to learn more about Blazor, visit official website at https://dotnet
 
 ## Screenshots
 
+https://user-images.githubusercontent.com/13251420/232236794-5014cc70-b97a-4dba-965f-01c5ece667b0.mp4
+
+<br/>
 <p align="center">
   <img src="./assets/01.png" alt="Personal Expense Tracker"/>
   <img src="./assets/02.png" alt="Personal Expense Tracker"/>
